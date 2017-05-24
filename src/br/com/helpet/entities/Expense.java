@@ -58,7 +58,7 @@ public class Expense extends BaseEntity implements Cloneable{
 	}
 	
 	public String toString(){
-		return "Animal: "+this.animal.getId()+" Serviço: "+this.service.getDescription()+" Data: "+this.date;
+		return "Animal: "+this.animal.getId()+" - Serviço: "+this.service.getDescription()+" - Data: "+this.date;
 	}
 	
 	@Override

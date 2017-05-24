@@ -8,8 +8,8 @@ import br.com.helpet.entities.Expense;
 
 public class ExpenseDaoImpl extends GenericDao<Expense> implements ExpenseDao{
 
-	public ExpenseDaoImpl(Class<Expense> entityClass) {
-		super(entityClass);
+	public ExpenseDaoImpl() {
+		super(Expense.class);
 	}
 
 	@Override

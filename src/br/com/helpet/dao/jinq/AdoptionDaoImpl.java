@@ -7,17 +7,21 @@ import br.com.helpet.entities.Adoption;
 
 public class AdoptionDaoImpl extends GenericDao<Adoption> implements AdoptionDao {
 
-	public AdoptionDaoImpl(Class<Adoption> entityClass) {
-		super(entityClass);
+	public AdoptionDaoImpl() {
+		super(Adoption.class);
 	}
 
 	@Override
-	public List<String> getAdoptionHistory() {
-		return null;
+	public List<String> getAdoptionHistory() {		
+		return super.getStream()
+						.group(a -> a.getPerson().getAddress().getCity(),
+							(city, stream) -> stream.where(a -> a.getAnimal().getPerson().getAddress().getCity().equals(city)).count())
+						.select(p -> "Cidade: "+p.getOne()+" - Nº adoções: "+p.getTwo())
+						.toList();			
 	}
 
 	@Override
-	public List<String> getAdoptionSummary(String city) {
+	public List<String> getAdoptionSummary(String city){
 		return null;
 	}
 
