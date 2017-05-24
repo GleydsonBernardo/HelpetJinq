@@ -22,8 +22,8 @@ public class Animal extends BaseEntity implements Cloneable{
 		
 	}
 
-	public Animal(AnimalEnum specie, String breed, String gender, double weight, int age, String description, Person person) {
-		this.specie = specie;
+	public Animal(String specie, String breed, String gender, double weight, int age, String description, Person person) {
+		this.specie = AnimalEnum.setName(specie);
 		this.breed = breed;
 		this.gender = gender;
 		this.weight = weight;
@@ -33,12 +33,12 @@ public class Animal extends BaseEntity implements Cloneable{
 	}
 
 	@Column(name="specie", nullable = false)
-	public AnimalEnum getSpecie() {
-		return specie;
+	public String getSpecie() {
+		return specie.name();
 	}
 
-	public void setSpecie(AnimalEnum specie) {
-		this.specie = specie;
+	public void setSpecie(String specie) {
+		this.specie = AnimalEnum.setName(specie);
 	}
 
 	@Column(name="breed", nullable = false)
@@ -100,7 +100,7 @@ public class Animal extends BaseEntity implements Cloneable{
 		CACHORRO, GATO;	
 		
 		public static AnimalEnum setName(String name){
-			if(name.equals(CACHORRO.name())){ 
+			if(name.equalsIgnoreCase(CACHORRO.name())){ 
 				return CACHORRO;
 			}
 			else return GATO;
@@ -109,8 +109,8 @@ public class Animal extends BaseEntity implements Cloneable{
 	
 	@Override
 	public String toString(){
-		return "Espécie: "+this.specie+" Raça: "+this.breed+" Gênero: "+this.gender+" Peso: "+this.weight+" Idade: "
-				+ ""+this.age+" Descrição: "+this.description+" Dono: "+this.person.getName();
+		return "Espécie: "+this.specie+" - Raça: "+this.breed+" - Gênero: "+this.gender+" - Peso: "+this.weight+" - Idade: "
+				+ ""+this.age+" - Descrição: "+this.description+" - Dono: "+this.person;
 	}
 	
 	@Override
