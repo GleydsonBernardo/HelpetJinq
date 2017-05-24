@@ -1,6 +1,12 @@
 package br.com.helpet.entities;
 
-public class Address extends BaseEntity{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ADDRESS")
+public class Address extends BaseEntity implements Cloneable{
 
 	private String street;
 	private String city;
@@ -17,6 +23,7 @@ public class Address extends BaseEntity{
 		this.complement = complement;
 	}
 
+	@Column(name="street", nullable=false)
 	public String getStreet() {
 		return street;
 	}
@@ -25,6 +32,7 @@ public class Address extends BaseEntity{
 		this.street = street;
 	}
 
+	@Column(name="city", nullable=false)
 	public String getCity() {
 		return city;
 	}
@@ -33,6 +41,7 @@ public class Address extends BaseEntity{
 		this.city = city;
 	}
 
+	@Column(name="state", nullable=false)
 	public String getState() {
 		return state;
 	}
@@ -41,11 +50,21 @@ public class Address extends BaseEntity{
 		this.state = state;
 	}
 
+	@Column(name="complement", nullable=false)
 	public String getComplement() {
 		return complement;
 	}
 
 	public void setComplement(String complement) {
 		this.complement = complement;
+	}
+	
+	@Override
+	public Address clone() {
+		try {
+			return (Address) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError(e.getMessage());
+		}
 	}
 }

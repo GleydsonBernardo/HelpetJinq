@@ -1,6 +1,14 @@
 package br.com.helpet.entities;
 
-public class Animal extends BaseEntity{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ANIMAL")
+public class Animal extends BaseEntity implements Cloneable{
 
 	private AnimalEnum specie;
 	private String breed;
@@ -24,6 +32,7 @@ public class Animal extends BaseEntity{
 		this.person = person;
 	}
 
+	@Column(name="specie", nullable = false)
 	public AnimalEnum getSpecie() {
 		return specie;
 	}
@@ -32,6 +41,7 @@ public class Animal extends BaseEntity{
 		this.specie = specie;
 	}
 
+	@Column(name="breed", nullable = false)
 	public String getBreed() {
 		return breed;
 	}
@@ -40,6 +50,7 @@ public class Animal extends BaseEntity{
 		this.breed = breed;
 	}
 
+	@Column(name="gender", nullable = false)
 	public String getGender() {
 		return gender;
 	}
@@ -48,6 +59,7 @@ public class Animal extends BaseEntity{
 		this.gender = gender;
 	}
 
+	@Column(name="weight", nullable = false)
 	public double getWeight() {
 		return weight;
 	}
@@ -56,6 +68,7 @@ public class Animal extends BaseEntity{
 		this.weight = weight;
 	}
 
+	@Column(name = "age", nullable = true)
 	public int getAge() {
 		return age;
 	}
@@ -64,6 +77,7 @@ public class Animal extends BaseEntity{
 		this.age = age;
 	}
 
+	@Column(name="description", nullable = false)
 	public String getDescription() {
 		return description;
 	}
@@ -72,6 +86,8 @@ public class Animal extends BaseEntity{
 		this.description = description;
 	}
 
+	@ManyToOne
+	@JoinColumn(name="person_id", nullable = true, updatable = true)
 	public Person getPerson() {
 		return person;
 	}
@@ -88,6 +104,21 @@ public class Animal extends BaseEntity{
 				return CACHORRO;
 			}
 			else return GATO;
+		}
+	}
+	
+	@Override
+	public String toString(){
+		return "Espécie: "+this.specie+" Raça: "+this.breed+" Gênero: "+this.gender+" Peso: "+this.weight+" Idade: "
+				+ ""+this.age+" Descrição: "+this.description+" Dono: "+this.person.getName();
+	}
+	
+	@Override
+	public Animal clone() {
+		try {
+			return (Animal) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError(e.getMessage());
 		}
 	}
 }

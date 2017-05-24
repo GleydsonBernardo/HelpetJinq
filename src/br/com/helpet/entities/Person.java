@@ -1,6 +1,14 @@
 package br.com.helpet.entities;
 
-public class Person extends BaseEntity{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PERSON")
+public class Person extends BaseEntity implements Cloneable{
 
 	private String name;
 	private Address address;
@@ -19,6 +27,7 @@ public class Person extends BaseEntity{
 		this.phone = phone;
 	}
 
+	@Column(name="name", nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -27,6 +36,8 @@ public class Person extends BaseEntity{
 		this.name = name;
 	}
 
+	@OneToOne
+	@JoinColumn(name="address_id", nullable=false, updatable=true)
 	public Address getAddress() {
 		return address;
 	}
@@ -35,6 +46,7 @@ public class Person extends BaseEntity{
 		this.address = address;
 	}
 
+	@Column(name="email", nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -43,6 +55,7 @@ public class Person extends BaseEntity{
 		this.email = email;
 	}
 
+	@Column(name="cpf", nullable = false)
 	public String getCpf() {
 		return cpf;
 	}
@@ -51,11 +64,27 @@ public class Person extends BaseEntity{
 		this.cpf = cpf;
 	}
 
+	@Column(name="phone", nullable = false)
 	public String getPhone() {
 		return phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	@Override
+	public String toString(){
+		return "Nome: "+this.name+" Endereço(Rua: "+this.address.getStreet()+" Cidade: "+this.address
+				.getCity()+") Email: "+this.email+" CPF: "+this.cpf+" Telefone: "+this.phone;
+	}
+	
+	@Override
+	public Person clone() {
+		try {
+			return (Person) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError(e.getMessage());
+		}
 	}
 }

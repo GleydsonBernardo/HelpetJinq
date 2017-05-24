@@ -57,7 +57,7 @@ public class GenericDao<Entity extends BaseEntity> implements Dao<Entity> {
 	
 	@Override
 	public Entity find(final int id) {
-		return execute(manager -> manager.find(entityClass, id));
+		return execute(manager ->manager.find(entityClass, id));
 	}
 
 	protected JinqStream<Entity> getStream() {
