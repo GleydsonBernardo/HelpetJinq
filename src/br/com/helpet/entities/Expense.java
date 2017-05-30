@@ -1,5 +1,7 @@
 package br.com.helpet.entities;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.helpet.util.DateConvertUtils;
 
 @Entity
 @Table(name="EXPENSE")
@@ -58,7 +62,9 @@ public class Expense extends BaseEntity implements Cloneable{
 	}
 	
 	public String toString(){
-		return "Animal: "+this.animal.getId()+" - Serviço: "+this.service.getDescription()+" - Data: "+this.date;
+		LocalDate localDate = DateConvertUtils.asLocalDate(this.date);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		return "Despesa  [Data: "+this.date+"  \n\t "+this.animal+" \n\t "+this.service+"];";
 	}
 	
 	@Override

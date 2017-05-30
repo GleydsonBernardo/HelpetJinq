@@ -60,6 +60,11 @@ public class Address extends BaseEntity implements Cloneable{
 	}
 	
 	@Override
+	public String toString(){
+		return "Endereço [Rua: "+this.street+" - Cidade: "+this.city+" - Estado: "+this.state+" - Complement: "+this.complement+"];";
+	}
+	
+	@Override
 	public Address clone() {
 		try {
 			return (Address) super.clone();

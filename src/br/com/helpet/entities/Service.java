@@ -39,7 +39,7 @@ public class Service extends BaseEntity implements Cloneable{
 	
 	@Override
 	public String toString(){
-		return "Serviço: "+this.description+" Valor: "+this.value;
+		return "Serviço  [Descrição: "+this.description+" Valor: "+this.value+"];";
 	}
 	
 	@Override

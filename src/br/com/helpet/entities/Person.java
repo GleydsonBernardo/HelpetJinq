@@ -75,8 +75,7 @@ public class Person extends BaseEntity implements Cloneable{
 	
 	@Override
 	public String toString(){
-		return "Nome: "+this.name+" Endereço(Rua: "+this.address.getStreet()+" Cidade: "+this.address
-				.getCity()+") Email: "+this.email+" CPF: "+this.cpf+" Telefone: "+this.phone;
+		return "Pessoa   [Nome: "+this.name+"- Email: "+this.email+" CPF: "+this.cpf+" Telefone: "+this.phone+" \n\t "+this.address+"];";
 	}
 	
 	@Override

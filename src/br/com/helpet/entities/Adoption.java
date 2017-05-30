@@ -1,5 +1,7 @@
 package br.com.helpet.entities;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.helpet.util.DateConvertUtils;
 
 @Entity
 @Table(name="ADOPTION")
@@ -60,7 +64,9 @@ public class Adoption extends BaseEntity implements Cloneable{
 	
 	@Override
 	public String toString(){
-		return "Pessoa: "+this.person.getName()+" Animal: "+this.animal.getId()+" - "+this.animal.getSpecie()+", "+this.animal.getBreed()+" Data: "+this.date;
+		LocalDate localDate = DateConvertUtils.asLocalDate(this.date);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		return "Adoção   [Data: "+this.date+" \n\t "+this.person+" \n\t "+this.animal+"];";
 	}
 	
 	@Override

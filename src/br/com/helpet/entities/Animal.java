@@ -109,8 +109,8 @@ public class Animal extends BaseEntity implements Cloneable{
 	
 	@Override
 	public String toString(){
-		return "Espécie: "+this.specie+" - Raça: "+this.breed+" - Gênero: "+this.gender+" - Peso: "+this.weight+" - Idade: "
-				+ ""+this.age+" - Descrição: "+this.description+" - Dono: "+this.person;
+		return "Animal  [Espécie: "+this.specie+" - Raça: "+this.breed+" - Gênero: "+this.gender+" - Peso: "+this.weight+" - Idade: "
+				+ ""+this.age+" - Descrição: "+this.description+" \n\t Dono: "+this.person+"];";
 	}
 	
 	@Override
