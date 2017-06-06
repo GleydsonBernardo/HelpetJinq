@@ -1,8 +1,12 @@
 package br.com.helpet.entities;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,6 +19,9 @@ public class Person extends BaseEntity implements Cloneable{
 	private String email;
 	private String cpf;
 	private String phone;
+	
+	private Collection<Animal> animals;
+	private Collection<Adoption> adoptions;
 	
 	public Person() {
 	}
@@ -85,5 +92,23 @@ public class Person extends BaseEntity implements Cloneable{
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError(e.getMessage());
 		}
+	}
+
+	@OneToMany(mappedBy="person", cascade=CascadeType.PERSIST)
+	public Collection<Adoption> getAdoptions() {
+		return adoptions;
+	}
+
+	public void setAdoptions(Collection<Adoption> adoptions) {
+		this.adoptions = adoptions;
+	}
+
+	@OneToMany(mappedBy="person", cascade = CascadeType.PERSIST)
+	public Collection<Animal> getAnimals() {
+		return animals;
+	}
+
+	public void setAnimals(Collection<Animal> animals) {
+		this.animals = animals;
 	}
 }

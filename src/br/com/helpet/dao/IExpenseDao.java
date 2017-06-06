@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.com.helpet.entities.Expense;
 
-public interface ExpenseDao extends Dao<Expense>{
+public interface IExpenseDao extends IDao<Expense>{
 
 	List<String> getSpeciesExpenses();
 	List<String> getServicesHistory(String description);

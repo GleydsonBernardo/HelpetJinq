@@ -1,7 +1,9 @@
 package br.com.helpet.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,6 +14,8 @@ public class Address extends BaseEntity implements Cloneable{
 	private String city;
 	private String state;
 	private String complement;
+	
+	private Person person;
 	
 	public Address() {
 	}
@@ -59,6 +63,15 @@ public class Address extends BaseEntity implements Cloneable{
 		this.complement = complement;
 	}
 	
+	@OneToOne(mappedBy="address", cascade=CascadeType.REMOVE)
+	public Person getPerson() {
+		return person;
+	}
+	
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	
 	@Override
 	public String toString(){
 		return "Endereço [Rua: "+this.street+" - Cidade: "+this.city+" - Estado: "+this.state+" - Complement: "+this.complement+"];";
@@ -72,4 +85,5 @@ public class Address extends BaseEntity implements Cloneable{
 			throw new InternalError(e.getMessage());
 		}
 	}
+
 }

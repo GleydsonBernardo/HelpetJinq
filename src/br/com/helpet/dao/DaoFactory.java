@@ -5,7 +5,7 @@ import br.com.helpet.entities.BaseEntity;
 
 public class DaoFactory {
 
-	public static <T extends BaseEntity> Dao<T> getDao(Class<T> entityClass) {
+	public static <T extends BaseEntity> IDao<T> getDao(Class<T> entityClass) {
 		return new GenericDao<>(entityClass);
 	}
 }

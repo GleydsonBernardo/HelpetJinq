@@ -11,11 +11,11 @@ import javax.persistence.EntityTransaction;
 import org.jinq.jpa.JinqJPAStreamProvider;
 import org.jinq.orm.stream.JinqStream;
 
-import br.com.helpet.dao.Dao;
+import br.com.helpet.dao.IDao;
 import br.com.helpet.entities.BaseEntity;
 
 
-public class GenericDao<Entity extends BaseEntity> implements Dao<Entity> {
+public class GenericDao<Entity extends BaseEntity> implements IDao<Entity> {
 
 	private EntityManagerFactory factory;
 

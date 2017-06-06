@@ -1,7 +1,11 @@
 package br.com.helpet.entities;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +14,8 @@ public class Service extends BaseEntity implements Cloneable{
 
 	private double value;
 	private String description;
+	
+	private Collection<Expense> expenses;
 	
 	public Service() {
 	}
@@ -49,5 +55,14 @@ public class Service extends BaseEntity implements Cloneable{
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError(e.getMessage());
 		}
+	}
+
+	@OneToMany(mappedBy="service", cascade = CascadeType.PERSIST)
+	public Collection<Expense> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(Collection<Expense> expenses) {
+		this.expenses = expenses;
 	}
 }

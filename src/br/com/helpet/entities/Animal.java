@@ -1,16 +1,21 @@
 package br.com.helpet.entities;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ANIMAL")
 public class Animal extends BaseEntity implements Cloneable{
 
-	private AnimalEnum specie;
+	private String specie;
 	private String breed;
 	private String gender;
 	private double weight;
@@ -18,12 +23,15 @@ public class Animal extends BaseEntity implements Cloneable{
 	private String description;
 	private Person person;
 	
+	private Adoption adoption;
+	private Collection<Expense> expenses;
+	
 	public Animal() {
 		
 	}
 
 	public Animal(String specie, String breed, String gender, double weight, int age, String description, Person person) {
-		this.specie = AnimalEnum.setName(specie);
+		this.specie = specie;
 		this.breed = breed;
 		this.gender = gender;
 		this.weight = weight;
@@ -34,11 +42,11 @@ public class Animal extends BaseEntity implements Cloneable{
 
 	@Column(name="specie", nullable = false)
 	public String getSpecie() {
-		return specie.name();
+		return this.specie;
 	}
 
 	public void setSpecie(String specie) {
-		this.specie = AnimalEnum.setName(specie);
+		this.specie = specie;
 	}
 
 	@Column(name="breed", nullable = false)
@@ -96,17 +104,6 @@ public class Animal extends BaseEntity implements Cloneable{
 		this.person = person;
 	}
 
-	public enum AnimalEnum {
-		CACHORRO, GATO;	
-		
-		public static AnimalEnum setName(String name){
-			if(name.equalsIgnoreCase(CACHORRO.name())){ 
-				return CACHORRO;
-			}
-			else return GATO;
-		}
-	}
-	
 	@Override
 	public String toString(){
 		return "Animal  [Espécie: "+this.specie+" - Raça: "+this.breed+" - Gênero: "+this.gender+" - Peso: "+this.weight+" - Idade: "
@@ -120,5 +117,23 @@ public class Animal extends BaseEntity implements Cloneable{
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError(e.getMessage());
 		}
+	}
+
+	@OneToOne(mappedBy="animal", cascade = CascadeType.PERSIST)
+	public Adoption getAdoption() {
+		return adoption;
+	}
+
+	public void setAdoption(Adoption adoption) {
+		this.adoption = adoption;
+	}
+
+	@OneToMany(mappedBy="animal", cascade = CascadeType.PERSIST)
+	public Collection<Expense> getExpenses() {
+		return expenses;
+	}
+
+	public void setExpenses(Collection<Expense> expenses) {
+		this.expenses = expenses;
 	}
 }
