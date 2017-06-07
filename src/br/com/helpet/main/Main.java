@@ -1,7 +1,11 @@
 package br.com.helpet.main;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+
+import org.jinq.tuples.Pair;
+import org.jinq.tuples.Tuple3;
 
 import br.com.helpet.dao.DaoFactory;
 import br.com.helpet.dao.IAdoptionDao;
@@ -21,16 +25,22 @@ public class Main {
 		
 	public static void main(String[] args) {
 
+		Date start =DateConvertUtils.asUtilDate(LocalDate.of(1999, 10, 22));
+		Date end = DateConvertUtils.asUtilDate(LocalDate.of(2017, 10, 22));
 		IAdoptionDao adoptionDao = new AdoptionDao();
-		List<String> adoptionHistory = adoptionDao.getAdoptionHistory();
-		List<String> adoptionSummary = adoptionDao.getAdoptionSummary("Recife");
+		List<Pair<String, Long>> adoptionHistory = adoptionDao.getAdoptionHistory();
+		List<Tuple3<String, String, Long>> adoptionSummary = adoptionDao.getAdoptionSummary(start, end);
 		
+//		adoptionHistory.forEach(System.out::println);
 //		adoptionSummary.forEach(System.out::println);
 		
 		IExpenseDao expenseDao = new ExpenseDao();
-		List<String> specieExpenseSummary = expenseDao.getSpeciesExpenses();
+		List<Tuple3<String, Long, Double>> specieExpenseSummary = expenseDao.getSpeciesExpenses();
+		List<Tuple3<Double, String, Date>> serviceHistory = expenseDao.getServicesHistory("Banho");
+		List<Tuple3<String, Long, Double>> servicesSummary = expenseDao.getExpensesSummary(start, end);
+		servicesSummary.forEach(System.out::println);
 		
-		specieExpenseSummary.forEach(System.out::println);
+		
 		
 //		adoptionOperations();
 //		animalOperations();
@@ -47,20 +57,18 @@ public class Main {
 		IDao<Expense> expenseDao = DaoFactory.getDao(Expense.class);
 		IDao<Service> serviceDao = DaoFactory.getDao(Service.class);
 		Person person = personDao.find(7);
-		Animal animal = animalDao.find(7);
+		Animal animal = animalDao.find(4);
 		Service banho = serviceDao.find(2);
 		Service consulta = serviceDao.find(3);
 		Service tosa = serviceDao.find(1);
-		LocalDate date = LocalDate.of(2017, 10, 22);
+		LocalDate date = LocalDate.now();
 		Expense expense = new Expense(animal, banho, DateConvertUtils.asUtilDate(date));
 		Expense expense2 = new Expense(animal, tosa, DateConvertUtils.asUtilDate(date));
 		Expense expense3 = new Expense(animal, consulta, DateConvertUtils.asUtilDate(date));
 //		adoptionDao.insert(new Adoption(animal, person, DateConvertUtils.asUtilDate(date)));
 //		animal.setPerson(person);
 //		animalDao.update(animal);
-		expenseDao.insert(expense);
-		expenseDao.insert(expense2);
-		expenseDao.insert(expense3);
+//		expenseDao.insert(expense);
 		
 		
 //		List<Adoption> adoptions = adoptionDao.list();
